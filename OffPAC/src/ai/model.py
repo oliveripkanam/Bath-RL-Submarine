@@ -3,13 +3,6 @@ import torch.nn.functional as F
 
 class ActorCriticNetwork(nn.Module):
     def __init__(self, input_shape=39, num_actions=4):
-        """
-        Actor-Critic Network for Off-PAC.
-        
-        Args:
-            input_shape (int): Size of the state vector.
-            num_actions (int): Number of discrete actions.
-        """
         super(ActorCriticNetwork, self).__init__()
         
         # Shared feature layers
@@ -24,12 +17,6 @@ class ActorCriticNetwork(nn.Module):
         self.critic = nn.Linear(256, num_actions)
         
     def forward(self, x):
-        """
-        Forward pass.
-        Returns:
-            policy_probs: Softmax probabilities for actions.
-            q_values: Q-values for all actions.
-        """
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))

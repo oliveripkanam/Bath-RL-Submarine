@@ -90,10 +90,6 @@ class DoubleDQNAgent:
 
 
 class DuelingDQNAgent(DoubleDQNAgent):
-    """
-    Uses DuelingDQN architecture but keeps Double DQN learning logic.
-    """
-
     def __init__(self, input_shape=19, num_actions=4, lr=1e-5, gamma=0.99, buffer_size=100000):
         super().__init__(input_shape, num_actions, lr, gamma, buffer_size)
 

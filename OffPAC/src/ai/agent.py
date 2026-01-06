@@ -42,12 +42,6 @@ class OffPACAgent:
         self.batch_size = 128
 
     def select_action(self, state, epsilon=0.0):
-        """
-        Select action using the current policy mixed with epsilon noise (exploration).
-        Returns: 
-            action (int): The chosen action.
-            mu (float): The probability of selecting this action (for Retrace).
-        """
         state_t = torch.FloatTensor(state).unsqueeze(0).to(self.device)
         with torch.no_grad():
             policy_probs, _ = self.model(state_t)

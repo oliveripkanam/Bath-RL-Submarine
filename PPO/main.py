@@ -112,6 +112,7 @@ my_sonar = Sonar(space, sonar_body, num_rays=16, max_range=200, agent_size=30)
 
 running = True
 game_active = True
+pitch_black_mode = False
 clock = pygame.time.Clock()
 
 while running:
@@ -120,6 +121,9 @@ while running:
         if event.type == QUIT: running = False
 
         if event.type == KEYDOWN:
+            if event.key in [K_LSHIFT, K_RSHIFT]:
+                 pitch_black_mode = not pitch_black_mode
+
             if not game_active:
                 if event.key == K_SPACE:
                     # Restart
@@ -213,12 +217,14 @@ while running:
             game_active = False
 
     # Drawing
-    canvas.fill((0, 128, 255))
-    cave_env.draw(canvas)
-
-    pygame.draw.line(canvas, (255, 0, 0), (start_x, 0), (start_x, MAP_HEIGHT), 2)
-    pygame.draw.line(canvas, (0, 255, 0), (MAP_WIDTH - 5, 0), (MAP_WIDTH - 5, MAP_HEIGHT), 5)
-    
+    if pitch_black_mode:
+        canvas.fill((0, 0, 0)) # Pitch black
+    else:
+        canvas.fill((0, 128, 255))
+        cave_env.draw(canvas)
+        pygame.draw.line(canvas, (255, 0, 0), (start_x, 0), (start_x, MAP_HEIGHT), 2)
+        pygame.draw.line(canvas, (0, 255, 0), (MAP_WIDTH - 5, 0), (MAP_WIDTH - 5, MAP_HEIGHT), 5)
+        
     submarine.draw(canvas)
     my_sonar.draw(canvas, font)
     
@@ -233,7 +239,7 @@ while running:
     screen.blit(scaled_surface, (dest_x, dest_y))
 
     battery_text = font.render(f'Battery: {submarine.battery} | Map: {map_files[current_map_index]}', True, (255, 255, 255))
-    controls_text = font.render('Arrows: Move | 1-8: Change Map', True, (255, 255, 0))
+    controls_text = font.render('Arrows: Move | 1-8: Maps | SHIFT: Pitch Black Mode', True, (255, 255, 0))
     
     screen.blit(battery_text, (10, 10))
     screen.blit(controls_text, (10, 30))
