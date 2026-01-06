@@ -6,7 +6,7 @@ import random
 from collections import deque
 from .model import ActorCriticNetwork
 
-class ACERReplayBuffer:
+class OffPACReplayBuffer:
     def __init__(self, capacity):
         self.buffer = deque(maxlen=capacity)
 
@@ -22,7 +22,7 @@ class ACERReplayBuffer:
     def __len__(self):
         return len(self.buffer)
 
-class ACERAgent:
+class OffPACAgent:
     def __init__(self, input_shape=39, num_actions=5, lr=1e-4, gamma=0.99, buffer_size=500000):
         self.num_actions = num_actions
         self.gamma = gamma
@@ -38,7 +38,7 @@ class ACERAgent:
 
         # Shared optimizer for both heads
         self.optimizer = optim.Adam(self.model.parameters(), lr=lr)
-        self.memory = ACERReplayBuffer(buffer_size)
+        self.memory = OffPACReplayBuffer(buffer_size)
         self.batch_size = 128
 
     def select_action(self, state, epsilon=0.0):

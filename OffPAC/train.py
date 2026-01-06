@@ -11,7 +11,7 @@ from src.cave_environment.environment import CaveEnvironment
 from src.cave_environment.spritesheet import SpriteSheet
 from src.entities.submarine import Submarine
 from src.sonar.sensors import Sonar
-from src.ai.agent import ACERAgent
+from src.ai.agent import OffPACAgent
 
 # Configuration
 WATCH_MODE = False
@@ -144,10 +144,10 @@ def train():
         preloaded_maps.append((s, e))
     print("Maps loaded.")
     
-    agent = ACERAgent(input_shape=39, num_actions=5)
+    agent = OffPACAgent(input_shape=39, num_actions=5)
     
     total_steps = 0
-    print(f"Starting ACER Training on Device: {agent.device}")
+    print(f"Starting OffPAC Training on Device: {agent.device}")
     print("Press TAB to toggle Fast/Watch Mode. Press ESC to quit.")
 
     success_history = []
@@ -162,7 +162,7 @@ def train():
 
     if LOAD_MODEL:
         # Try to find the latest checkpoint or the final model
-        model_path = "models/acer_submarine_final.pth"
+        model_path = "models/offpac_submarine_final.pth"
         if not os.path.exists(model_path):
             list_of_files = glob.glob('models/ddqn_submarine_ep*.pth')
             if list_of_files:
@@ -409,21 +409,21 @@ def train():
         if episode % SAVE_INTERVAL == 0:
             agent.save(f"models/ddqn_submarine_ep{episode}.pth")
 
-    agent.save("models/acer_submarine_final.pth")
+    agent.save("models/offpac_submarine_final.pth")
     
     # End timer
     training_end_time = time.time()
     total_time = training_end_time - training_start_time
     
     # Save loss
-    np.save("acer_training_loss.npy", np.array(loss_history))
+    np.save("offpac_training_loss.npy", np.array(loss_history))
     
     print("\n" + "="*50)
     print("TRAINING COMPLETE - FINAL STATISTICS")
     print(f"Total Training Time: {format_time(total_time)}")
     
     # Record time to file
-    with open("acer_training_time.txt", "w") as f:
+    with open("offpac_training_time.txt", "w") as f:
         f.write(f"Total Training Time: {format_time(total_time)}")
         
     print("="*50)

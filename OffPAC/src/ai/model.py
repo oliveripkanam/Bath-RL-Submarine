@@ -4,7 +4,7 @@ import torch.nn.functional as F
 class ActorCriticNetwork(nn.Module):
     def __init__(self, input_shape=39, num_actions=4):
         """
-        Actor-Critic Network for ACER.
+        Actor-Critic Network for Off-PAC.
         
         Args:
             input_shape (int): Size of the state vector.
