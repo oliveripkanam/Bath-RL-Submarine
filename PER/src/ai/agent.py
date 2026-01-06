@@ -3,7 +3,6 @@ import torch.optim as optim
 import torch.nn.functional as F
 import numpy as np
 import random
-from collections import deque
 from .model import DQN
 from .per import PrioritizedReplayBuffer
 
