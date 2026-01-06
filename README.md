@@ -2,12 +2,12 @@
 This project implements and compares six Deep Reinforcement Learning (DRL) architectures trained to pilot a submarine through complex 2D cave systems. The agents must manage continuous momentum physics, avoid obstacles, and collect resources (batteries) to reach a target destination.
 
 ## Implemented Agents
-DQN
-Double DQN
-Dueling DQN
-PER
-PPO
-Off-PAC
+- DQN
+- Double DQN
+- Dueling DQN
+- PER
+- PPO
+- Off-PAC
 
 ## Setup
 pip install pymunk pygame numpy torch
